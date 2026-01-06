@@ -11,6 +11,6 @@ TOOLS=(
 
 # Layer assignments
 git_layers=(base stripe)
-zsh_layers=(base stripe)
+zsh_layers=(base stripe devbox)
 nvim_layers=(base stripe)
 ssh_layers=(base stripe)
