@@ -1,0 +1,12 @@
+# =============================================================================
+# .gitconfig.personal - Personal repo signing configuration
+# =============================================================================
+# Loaded via includeIf for repos with personal GitHub remotes.
+# Uses 1Password for SSH commit signing.
+# =============================================================================
+
+[commit]
+    gpgsign = true
+
+[gpg "ssh"]
+    program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign

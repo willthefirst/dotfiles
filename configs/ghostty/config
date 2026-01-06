@@ -1,0 +1,5 @@
+font-family = Hasklug Nerd Font Med
+font-size = 14
+window-padding-x = 2
+theme = light:Catppuccin Latte,dark:Catppuccin Mocha
+keybind = shift+enter=text:\x1b\r

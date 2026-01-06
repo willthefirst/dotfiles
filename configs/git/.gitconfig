@@ -1,0 +1,45 @@
+# =============================================================================
+# .gitconfig - Base Git Configuration
+# =============================================================================
+
+[user]
+    name = Will Moritz
+    email = willthefirst@gmail.com
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE4sYgYeiZBZD3CdjMI+AVW5ED2ZDSUbS1XYeMW8t4wD
+
+[init]
+    defaultBranch = main
+
+[push]
+    autoSetupRemote = true
+
+[core]
+    compression = 0
+    excludesfile = ~/.gitignore_global
+
+[gpg]
+    format = ssh
+
+[commit]
+    gpgsign = false
+
+# =============================================================================
+# Personal Repos - Enable 1Password SSH signing for personal GitHub repos
+# =============================================================================
+[includeIf "hasconfig:remote.*.url:git@github.com:willthefirst/**"]
+    path = ~/.gitconfig.personal
+
+# =============================================================================
+# Aliases
+# =============================================================================
+[alias]
+    # Common shortcuts
+    st = status
+    co = checkout
+    br = branch
+    ci = commit
+    # Log formatting
+    lg = log --oneline --graph --decorate
+    # Show last commit
+    last = log -1 HEAD
+

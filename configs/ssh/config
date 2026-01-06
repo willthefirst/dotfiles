@@ -1,0 +1,32 @@
+# BEGIN devboxes SSH config
+Include ~/.ssh/devbox_configs
+# END devboxes SSH config
+# =============================================================================
+# SSH Config - Base Configuration
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Global Defaults
+# -----------------------------------------------------------------------------
+Host *
+    # Temporarily disabling this line while we figure out how to configure gpg signing for private willthefirst repositories 
+    # Use 1Password SSH agent
+    # IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    # Keep connections alive
+    #
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    # Security
+    AddKeysToAgent yes
+    # Connection reuse
+    ControlMaster auto
+    ControlPath ~/.ssh/sockets/%r@%h-%p
+    ControlPersist 600
+
+# -----------------------------------------------------------------------------
+# Personal Hosts
+# -----------------------------------------------------------------------------
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519

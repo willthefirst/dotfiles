@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# Editors
+*.swp
+*.swo
+*~
+
+# IDEs
+.idea/
+.vscode/
+*.sublime-*
+
+# Environment files (security)
+.env
+.env.local
