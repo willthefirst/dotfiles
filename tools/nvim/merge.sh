@@ -9,14 +9,20 @@
 
 set -eo pipefail
 
+# Source utilities for safe operations
+# Note: utils.sh has set -u, but we disable it here since we use associative
+# arrays that may be empty, and bash's ${#array[@]} doesn't work well with -u
+source "${DOTFILES_DIR}/lib/dotfiles-system/lib/utils.sh"
+set +u  # Disable unset variable checking for associative array handling
+
 IFS=':' read -ra layer_names <<< "$LAYERS"
 IFS=':' read -ra layer_paths <<< "$LAYER_PATHS"
 
 echo "[INFO] Generating Neovim config at: $TARGET"
 echo "[INFO] Layers: $LAYERS"
 
-# Clean and create target directory structure
-rm -rf "$TARGET"
+# Clean and create target directory structure (with backup)
+safe_remove_rf "$TARGET"
 mkdir -p "$TARGET/lua"
 
 # Associative arrays to track files (later layers override earlier ones)

@@ -59,4 +59,53 @@ function M.bootstrap()
   vim.opt.rtp:prepend(lazypath)
 end
 
+-- =============================================================================
+-- Extension API
+-- =============================================================================
+-- This provides a clean interface for overlay configs (like Stripe) to extend
+-- the base configuration without needing to understand internal structure.
+
+---Extend the base configuration with additional plugins and options
+---@param options table Extension options
+---  - extra_spec: table[] Additional plugin specs to add (e.g., { import = "plugins-work" })
+---  - opts: table Additional options to deep merge with base opts
+---@return table Extended configuration ready for require("lazy").setup()
+function M.extend(options)
+  options = options or {}
+
+  -- Start with a copy of the base spec
+  local spec = vim.deepcopy(M.spec)
+
+  -- Add extra specs if provided
+  if options.extra_spec then
+    for _, entry in ipairs(options.extra_spec) do
+      table.insert(spec, entry)
+    end
+  end
+
+  -- Merge options with base
+  local opts = vim.tbl_deep_extend("force", vim.deepcopy(M.opts), options.opts or {})
+
+  return {
+    spec = spec,
+    defaults = opts.defaults,
+    install = opts.install,
+    checker = opts.checker,
+    performance = opts.performance,
+  }
+end
+
+---Setup lazy.nvim with the base configuration
+---Convenience function for layers that don't need to extend
+function M.setup()
+  M.bootstrap()
+  require("lazy").setup({
+    spec = M.spec,
+    defaults = M.opts.defaults,
+    install = M.opts.install,
+    checker = M.opts.checker,
+    performance = M.opts.performance,
+  })
+end
+
 return M
