@@ -8,6 +8,7 @@ TOOLS=(
     ssh
     ghostty
     karabiner
+    claude
 )
 
 # Layer assignments (base only for personal machine)
@@ -17,3 +18,4 @@ nvim_layers=(base)
 ssh_layers=(base)
 ghostty_layers=(base)
 karabiner_layers=(base)
+claude_layers=(base)

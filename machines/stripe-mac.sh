@@ -8,6 +8,7 @@ TOOLS=(
     ssh
     ghostty
     karabiner
+    claude
 )
 
 # Layer assignments (base + stripe for work machine)
@@ -17,3 +18,4 @@ nvim_layers=(base stripe)
 ssh_layers=(base stripe)
 ghostty_layers=(base)   # No stripe-specific ghostty config
 karabiner_layers=(base) # No stripe-specific karabiner config
+claude_layers=(base)    # Same Claude config everywhere
