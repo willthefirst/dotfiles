@@ -7,6 +7,7 @@ TOOLS=(
     nvim
     ssh
     ghostty
+    karabiner
 )
 
 # Layer assignments (base only for personal machine)
@@ -15,3 +16,4 @@ zsh_layers=(base)
 nvim_layers=(base)
 ssh_layers=(base)
 ghostty_layers=(base)
+karabiner_layers=(base)
