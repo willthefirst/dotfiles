@@ -12,14 +12,15 @@ set -eo pipefail
 # Source utilities for safe operations
 # Note: utils.sh has set -u, but we disable it here since we use associative
 # arrays that may be empty, and bash's ${#array[@]} doesn't work well with -u
+source "${DOTFILES_DIR}/lib/helpers/log.sh"
 source "${DOTFILES_DIR}/lib/dotfiles-system/lib/utils.sh"
 set +u  # Disable unset variable checking for associative array handling
 
 IFS=':' read -ra layer_names <<< "$LAYERS"
 IFS=':' read -ra layer_paths <<< "$LAYER_PATHS"
 
-echo "[INFO] Generating Neovim config at: $TARGET"
-echo "[INFO] Layers: $LAYERS"
+log_step "Generating Neovim config"
+log_detail "Target: $TARGET"
 
 # Clean and create target directory structure (with backup)
 safe_remove_rf "$TARGET"
@@ -35,7 +36,6 @@ declare -A root_files      # filename -> source_path
 for i in "${!layer_paths[@]}"; do
     layer_path="${layer_paths[$i]}"
     layer_name="${layer_names[$i]}"
-    echo "[INFO] Processing layer: $layer_name ($layer_path)"
 
     # Process root files (*.lua, *.json)
     shopt -s nullglob
@@ -80,42 +80,42 @@ done
 # Create lua/config directory and symlink files
 if [[ ${#config_files[@]} -gt 0 ]]; then
     mkdir -p "$TARGET/lua/config"
-    echo "[INFO] Creating config symlinks..."
+    log_step "Creating config symlinks..."
     for filename in "${!config_files[@]}"; do
         source_path="${config_files[$filename]}"
         ln -sf "$source_path" "$TARGET/lua/config/$filename"
-        echo "       $filename"
+        log_detail "$filename"
     done
 fi
 
 # Create lua/plugins directory and symlink files
 if [[ ${#plugin_files[@]} -gt 0 ]]; then
     mkdir -p "$TARGET/lua/plugins"
-    echo "[INFO] Creating plugin symlinks..."
+    log_step "Creating plugin symlinks..."
     for filename in "${!plugin_files[@]}"; do
         source_path="${plugin_files[$filename]}"
         ln -sf "$source_path" "$TARGET/lua/plugins/$filename"
-        echo "       $filename"
+        log_detail "$filename"
     done
 fi
 
 # Symlink additional plugin directories
 if [[ ${#plugin_dirs[@]} -gt 0 ]]; then
-    echo "[INFO] Symlinking additional plugin directories..."
+    log_step "Symlinking additional plugin directories..."
     for dirname in "${!plugin_dirs[@]}"; do
         source_path="${plugin_dirs[$dirname]}"
         ln -sf "$source_path" "$TARGET/lua/$dirname"
-        echo "       $dirname/"
+        log_detail "$dirname/"
     done
 fi
 
 # Symlink root files
 if [[ ${#root_files[@]} -gt 0 ]]; then
-    echo "[INFO] Creating root file symlinks..."
+    log_step "Creating root file symlinks..."
     for filename in "${!root_files[@]}"; do
         source_path="${root_files[$filename]}"
         ln -sf "$source_path" "$TARGET/$filename"
-        echo "       $filename"
+        log_detail "$filename"
     done
 fi
 
@@ -129,6 +129,6 @@ return {
     paths = {"${layer_paths[*]// /\", \"}"},
 }
 EOF
-echo "[INFO] Generated lua/lib/layers.lua"
+log_detail "Generated lua/lib/layers.lua"
 
-echo "[OK] Neovim config generated at: $TARGET"
+log_ok "Neovim config generated"

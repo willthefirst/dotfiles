@@ -5,6 +5,7 @@
 
 set -euo pipefail
 
+source "${DOTFILES_DIR}/lib/helpers/log.sh"
 source "${DOTFILES_DIR}/lib/dotfiles-system/lib/utils.sh"
 
 # Disable unbound variable check for associative arrays
@@ -22,16 +23,17 @@ for layer_path in "${layer_paths[@]}"; do
 
         # Backup existing file if it's not already a symlink to our config
         if [[ -e "$target_file" && ! -L "$target_file" ]]; then
-            echo "[INFO] Backing up existing settings.json"
+            log_detail "Backing up existing settings.json"
             safe_remove "$target_file"
         elif [[ -L "$target_file" ]]; then
             # Remove existing symlink
             rm -f "$target_file"
         fi
 
-        echo "[INFO] Symlinking settings.json from: $layer_path"
+        log_step "Symlinking settings.json"
+        log_detail "From: $layer_path"
         ln -sf "$layer_path/settings.json" "$target_file"
     fi
 done
 
-echo "[OK] Claude settings configured at: $TARGET"
+log_ok "Claude settings configured"

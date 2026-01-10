@@ -4,6 +4,8 @@
 
 set -euo pipefail
 
+source "${DOTFILES_DIR}/lib/helpers/log.sh"
+
 IFS=':' read -ra layer_names <<< "$LAYERS"
 IFS=':' read -ra paths <<< "$LAYER_PATHS"
 
@@ -39,10 +41,10 @@ for i in "${!paths[@]}"; do
         echo "[include]" >> "$TARGET"
         echo "    path = $config_file" >> "$TARGET"
         echo "" >> "$TARGET"
-        echo "[INFO] Added include for layer: $layer_name"
+        log_detail "Include: $layer_name"
     else
-        echo "[WARN] No gitconfig found in layer: $layer_path" >&2
+        log_warn "No gitconfig in layer: $layer_path"
     fi
 done
 
-echo "[OK] Git config written to: $TARGET"
+log_ok "Git config written"
