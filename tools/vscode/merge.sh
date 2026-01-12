@@ -16,12 +16,6 @@ source "$DOTFILES_DIR/lib/helpers/log.sh"
 source "$DOTFILES_DIR/lib/helpers/json-merge.sh"
 source "$DOTFILES_DIR/lib/helpers/symlink-factory.sh"
 
-# Strip comments from JSONC (JSON with Comments) for jq compatibility
-# Handles // line comments and trailing commas
-strip_jsonc_comments() {
-    sed -e 's|//.*||g' -e 's|[[:space:]]*$||' | tr '\n' '\f' | sed -e 's/,\f*}/}/g' -e 's/,\f*\]/]/g' | tr '\f' '\n'
-}
-
 # Parse layer paths from environment (colon-separated)
 IFS=':' read -ra layer_paths <<< "$LAYER_PATHS"
 
@@ -30,19 +24,12 @@ log_section "Merging VS Code configuration"
 # Ensure target directory exists
 mkdir -p "$TARGET"
 
-# Create temp directory for stripped JSON files
-tmp_dir=$(mktemp -d)
-trap 'rm -rf "$tmp_dir"' EXIT
-
 # 1. Deep merge settings.json from all layers
 log_step "Merging settings.json"
 settings_files=()
 for layer_path in "${layer_paths[@]}"; do
     if [[ -f "$layer_path/settings.json" ]]; then
-        # Strip comments for jq compatibility
-        tmp_file="$tmp_dir/settings_$(echo "$layer_path" | md5 -q).json"
-        strip_jsonc_comments < "$layer_path/settings.json" > "$tmp_file"
-        settings_files+=("$tmp_file")
+        settings_files+=("$layer_path/settings.json")
         log_detail "Including: $layer_path/settings.json"
     fi
 done
@@ -60,10 +47,7 @@ log_step "Merging keybindings.json"
 keybindings_files=()
 for layer_path in "${layer_paths[@]}"; do
     if [[ -f "$layer_path/keybindings.json" ]]; then
-        # Strip comments for jq compatibility
-        tmp_file="$tmp_dir/keybindings_$(echo "$layer_path" | md5 -q).json"
-        strip_jsonc_comments < "$layer_path/keybindings.json" > "$tmp_file"
-        keybindings_files+=("$tmp_file")
+        keybindings_files+=("$layer_path/keybindings.json")
         log_detail "Including: $layer_path/keybindings.json"
     fi
 done
