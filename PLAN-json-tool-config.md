@@ -165,7 +165,7 @@ ssh_layers=(base stripe)
 | Phase | Status | Started | Completed | Notes |
 |-------|--------|---------|-----------|-------|
 | 1 | 🟢 Complete | 2026-01-11 | 2026-01-11 | All schemas created |
-| 2 | 🔴 Not Started | - | - | - |
+| 2 | 🟢 Complete | 2026-01-11 | 2026-01-11 | JSON parser + unit/integration tests |
 | 3 | 🔴 Not Started | - | - | - |
 | 4 | 🔴 Not Started | - | - | - |
 | 5 | 🔴 Not Started | - | - | - |
@@ -380,10 +380,10 @@ _config_parse_tool_json() {
 ```
 
 **Deliverables**:
-- [ ] `_config_parse_tool_json()` function
-- [ ] Update `config_parse_tool()` to try JSON first
-- [ ] Unit tests for JSON parsing
-- [ ] Integration tests with real JSON files
+- [x] `_config_parse_tool_json()` function
+- [x] Update `config_parse_tool()` to try JSON first
+- [x] Unit tests for JSON parsing
+- [x] Integration tests with real JSON files
 
 ---
 
@@ -736,6 +736,7 @@ Before Phase 7 cleanup:
 |------|--------|--------|
 | 2026-01-11 | Initial plan created | Claude |
 | 2026-01-11 | Phase 1 complete: JSON schemas created | Claude |
+| 2026-01-11 | Phase 2 complete: Tool config JSON parser with unit/integration tests | Claude |
 
 ---
 
