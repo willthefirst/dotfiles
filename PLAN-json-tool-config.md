@@ -166,7 +166,7 @@ ssh_layers=(base stripe)
 |-------|--------|---------|-----------|-------|
 | 1 | 🟢 Complete | 2026-01-11 | 2026-01-11 | All schemas created |
 | 2 | 🟢 Complete | 2026-01-11 | 2026-01-11 | JSON parser + unit/integration tests |
-| 3 | 🔴 Not Started | - | - | - |
+| 3 | 🟢 Complete | 2026-01-11 | 2026-01-11 | repos.json parser + unit/integration tests |
 | 4 | 🔴 Not Started | - | - | - |
 | 5 | 🔴 Not Started | - | - | - |
 | 6 | 🔴 Not Started | - | - | - |
@@ -441,9 +441,10 @@ _repos_init_json() {
 ```
 
 **Deliverables**:
-- [ ] `_repos_init_json()` function
-- [ ] Update `repos_init()` to try JSON first
-- [ ] Unit tests for JSON parsing
+- [x] `_repos_init_json()` function
+- [x] Update `repos_init()` to try JSON first
+- [x] Unit tests for JSON parsing
+- [x] Integration tests with real repos.json files
 
 ---
 
@@ -737,6 +738,7 @@ Before Phase 7 cleanup:
 | 2026-01-11 | Initial plan created | Claude |
 | 2026-01-11 | Phase 1 complete: JSON schemas created | Claude |
 | 2026-01-11 | Phase 2 complete: Tool config JSON parser with unit/integration tests | Claude |
+| 2026-01-11 | Phase 3 complete: Repos JSON parser with unit/integration tests | Claude |
 
 ---
 
