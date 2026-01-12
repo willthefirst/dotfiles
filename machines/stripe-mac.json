@@ -1,0 +1,15 @@
+{
+  "$schema": "../lib/dotfiles-system/schemas/machine.schema.json",
+  "name": "stripe-mac",
+  "description": "Stripe Mac configuration - base + stripe layers",
+  "tools": {
+    "git": ["base", "stripe"],
+    "zsh": ["base", "stripe"],
+    "nvim": ["base", "stripe"],
+    "ssh": ["base", "stripe"],
+    "ghostty": ["base"],
+    "karabiner": ["base"],
+    "claude": ["base"],
+    "vscode": ["base", "stripe"]
+  }
+}

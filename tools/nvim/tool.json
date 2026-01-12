@@ -1,0 +1,10 @@
+{
+  "$schema": "../../lib/dotfiles-system/schemas/tool.schema.json",
+  "target": "~/.config/nvim",
+  "merge_hook": "./merge.sh",
+  "install_hook": "./install.sh",
+  "layers": [
+    { "name": "base", "source": "local", "path": "configs/nvim" },
+    { "name": "stripe", "source": "STRIPE_DOTFILES", "path": "nvim" }
+  ]
+}

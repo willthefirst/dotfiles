@@ -1,0 +1,15 @@
+{
+  "$schema": "../lib/dotfiles-system/schemas/machine.schema.json",
+  "name": "personal-mac",
+  "description": "Personal Mac configuration - base layers only",
+  "tools": {
+    "git": ["base"],
+    "zsh": ["base"],
+    "nvim": ["base"],
+    "ssh": ["base"],
+    "ghostty": ["base"],
+    "karabiner": ["base"],
+    "claude": ["base"],
+    "vscode": ["base"]
+  }
+}

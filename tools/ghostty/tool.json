@@ -1,0 +1,8 @@
+{
+  "$schema": "../../lib/dotfiles-system/schemas/tool.schema.json",
+  "target": "~/.config/ghostty",
+  "merge_hook": "builtin:symlink",
+  "layers": [
+    { "name": "base", "source": "local", "path": "configs/ghostty" }
+  ]
+}

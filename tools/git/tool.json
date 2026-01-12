@@ -1,0 +1,10 @@
+{
+  "$schema": "../../lib/dotfiles-system/schemas/tool.schema.json",
+  "target": "~/.gitconfig",
+  "merge_hook": "./merge.sh",
+  "install_hook": "./install.sh",
+  "layers": [
+    { "name": "base", "source": "local", "path": "configs/git" },
+    { "name": "stripe", "source": "STRIPE_DOTFILES", "path": "git" }
+  ]
+}

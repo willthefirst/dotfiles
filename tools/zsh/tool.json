@@ -1,0 +1,10 @@
+{
+  "$schema": "../../lib/dotfiles-system/schemas/tool.schema.json",
+  "target": "~/.zshrc",
+  "merge_hook": "builtin:source",
+  "layers": [
+    { "name": "base", "source": "local", "path": "configs/zsh" },
+    { "name": "devbox", "source": "STRIPE_DOTFILES", "path": "zsh-devbox" },
+    { "name": "stripe", "source": "STRIPE_DOTFILES", "path": "zsh" }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "../../lib/dotfiles-system/schemas/tool.schema.json",
+  "target": "~/.ssh/config",
+  "merge_hook": "builtin:concat",
+  "install_hook": "./install.sh",
+  "layers": [
+    { "name": "base", "source": "local", "path": "configs/ssh" },
+    { "name": "stripe", "source": "STRIPE_DOTFILES", "path": "ssh" }
+  ]
+}

@@ -169,7 +169,7 @@ ssh_layers=(base stripe)
 | 3 | 🟢 Complete | 2026-01-11 | 2026-01-11 | repos.json parser + unit/integration tests |
 | 4 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Machine JSON parser + unit/integration tests |
 | 5 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Migration script + unit/integration tests |
-| 6 | 🔴 Not Started | - | - | - |
+| 6 | 🟢 Complete | 2026-01-11 | 2026-01-11 | All configs migrated to JSON |
 | 7 | 🔴 Not Started | - | - | - |
 
 Status key: 🔴 Not Started | 🟡 In Progress | 🟢 Complete | 🔵 Blocked
@@ -608,29 +608,29 @@ esac
 **Checklist**:
 
 **repos.json**:
-- [ ] Generate repos.json from repos.conf
-- [ ] Verify repos_init loads correctly
-- [ ] Test external repo cloning
+- [x] Generate repos.json from repos.conf
+- [x] Verify repos_init loads correctly
+- [x] Test external repo cloning
 
 **Tool Configs** (tool.json):
-- [ ] claude
-- [ ] ghostty
-- [ ] git
-- [ ] karabiner
-- [ ] nvim
-- [ ] ssh
-- [ ] vscode
-- [ ] zsh
+- [x] claude
+- [x] ghostty
+- [x] git
+- [x] karabiner
+- [x] nvim
+- [x] ssh
+- [x] vscode
+- [x] zsh
 
 **Machine Profiles**:
-- [ ] personal-mac.json
-- [ ] stripe-mac.json
-- [ ] stripe-devbox.json
+- [x] personal-mac.json
+- [x] stripe-mac.json
+- [x] stripe-devbox.json
 
 **Verification**:
-- [ ] `./install.sh personal-mac --dry-run` works
-- [ ] `./install.sh stripe-mac --dry-run` works
-- [ ] Real install of single tool works
+- [x] `./install.sh personal-mac --dry-run` works
+- [x] `./install.sh stripe-mac --dry-run` works (requires external repo)
+- [x] Real install of single tool works
 
 ---
 
@@ -744,6 +744,7 @@ Before Phase 7 cleanup:
 | 2026-01-11 | Phase 3 complete: Repos JSON parser with unit/integration tests | Claude |
 | 2026-01-11 | Phase 4 complete: Machine JSON parser with unit/integration tests | Claude |
 | 2026-01-11 | Phase 5 complete: Migration script with unit/integration tests | Claude |
+| 2026-01-11 | Phase 6 complete: All config files migrated to JSON | Claude |
 
 ---
 

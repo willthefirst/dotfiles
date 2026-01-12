@@ -1,0 +1,10 @@
+{
+  "$schema": "../../lib/dotfiles-system/schemas/tool.schema.json",
+  "target": "~/Library/Application Support/Code/User",
+  "merge_hook": "./merge.sh",
+  "install_hook": "./install.sh",
+  "layers": [
+    { "name": "base", "source": "local", "path": "configs/vscode" },
+    { "name": "stripe", "source": "STRIPE_DOTFILES", "path": "vscode" }
+  ]
+}

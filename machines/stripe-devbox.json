@@ -1,0 +1,12 @@
+{
+  "$schema": "../lib/dotfiles-system/schemas/machine.schema.json",
+  "name": "stripe-devbox",
+  "description": "Stripe devbox configuration - base + stripe layers",
+  "tools": {
+    "git": ["base", "stripe"],
+    "zsh": ["base", "stripe", "devbox"],
+    "nvim": ["base", "stripe"],
+    "ssh": ["base", "stripe"],
+    "claude": ["base"]
+  }
+}

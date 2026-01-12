@@ -1,0 +1,10 @@
+{
+  "$schema": "lib/dotfiles-system/schemas/repos.schema.json",
+  "repositories": [
+    {
+      "name": "STRIPE_DOTFILES",
+      "url": "git@git.corp.stripe.com:willm/dotfiles-stripe.git",
+      "path": "~/.dotfiles-stripe"
+    }
+  ]
+}

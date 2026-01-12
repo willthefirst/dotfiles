@@ -1,0 +1,9 @@
+{
+  "$schema": "../../lib/dotfiles-system/schemas/tool.schema.json",
+  "target": "~/.claude",
+  "merge_hook": "./merge.sh",
+  "install_hook": "builtin:skip",
+  "layers": [
+    { "name": "base", "source": "local", "path": "configs/claude" }
+  ]
+}
