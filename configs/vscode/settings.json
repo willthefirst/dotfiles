@@ -1,8 +1,126 @@
 {
-    "editor.fontSize": 14,
-    "editor.tabSize": 2,
+  // Editor - Core
+  "editor.minimap.enabled": false,
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.accessibilitySupport": "off",
+  "editor.smoothScrolling": true,
+  "editor.formatOnSave": true,
+  "editor.stickyScroll.enabled": true,
+  "editor.mouseWheelZoom": true,
+  "editor.cursorSmoothCaretAnimation": "on",
+
+  // Editor - Font
+  "editor.fontFamily": "Hasklug Nerd Font",
+  "editor.fontLigatures": "'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'ss07', 'ss08', 'calt', 'dlig'",
+  "editor.fontSize": 18,
+  "editor.fontWeight": "normal",
+  "editor.fontVariations": true,
+
+  // Editor - Prettier
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.jsxSingleQuote": true,
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "prettier.useEditorConfig": false,
+  "prettier.bracketSameLine": true,
+  "prettier.enableDebugLogs": true,
+
+  // Workbench
+  "workbench.colorTheme": "Default Light Modern",
+  "workbench.activityBar.location": "hidden",
+  "workbench.panel.defaultLocation": "left",
+  "workbench.sideBar.location": "right",
+  "workbench.list.smoothScrolling": true,
+  "workbench.startupEditor": "none",
+  "workbench.editor.empty.hint": "hidden",
+  "workbench.editor.enablePreview": false,
+  "workbench.quickOpen.closeOnFocusLost": false,
+
+  // Explorer
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+
+  // Search
+  "search.exclude": {
+    "**/node_modules": true
+  },
+
+  // Window
+  "window.restoreFullscreen": true,
+  "window.restoreWindows": "none",
+  "window.commandCenter": false,
+
+  // Terminal
+  "terminal.external.osxExec": "Ghostty.app",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.fontFamily": "Hasklug Nerd Font Mono",
+  "terminal.integrated.fontSize": 15,
+  "terminal.integrated.fontWeight": "normal",
+  "terminal.integrated.fontLigatures.enabled": true,
+  "terminal.integrated.smoothScrolling": true,
+  "terminal.integrated.scrollback": 100000,
+  "terminal.integrated.environmentChangesRelaunch": false,
+  "terminal.integrated.tabs.title": "${cwdFolder}",
+
+  // Git
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.blame.editorDecoration.enabled": true,
+
+  // TypeScript/JavaScript
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  // ESLint
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.useESLintClass": true,
+
+  // GitLens
+  "gitlens.graph.minimap.enabled": false,
+  "gitlens.ai.enabled": false,
+
+  // Markdown
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
+  },
+  "markdown-preview-enhanced.automaticallyShowPreviewOfMarkdownBeingEdited": true,
+  "markdown-preview-enhanced.printBackground": true,
+  "markdown-preview-enhanced.liveUpdate": true,
+  "markdown-preview-enhanced.scrollSync": true,
+
+  // Ruby
+  "[ruby]": {
     "editor.formatOnSave": true,
-    "editor.minimap.enabled": false,
-    "files.autoSave": "onFocusChange",
-    "workbench.colorTheme": "Default Dark+"
+    "editor.defaultFormatter": "ruby-syntax-tree.vscode-syntax-tree"
+  },
+
+  // GitHub Copilot
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+  "github.copilot.nextEditSuggestions.enabled": true,
+
+  // Chat/AI
+  "chat.editing.alwaysSaveWithGeneratedChanges": true,
+
+  // Debug
+  "debug.javascript.autoAttachFilter": "disabled",
+  "liveServer.settings.donotShowInfoMsg": true
 }

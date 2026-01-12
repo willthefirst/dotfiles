@@ -1,12 +1,58 @@
 # VS Code Extensions
-# One extension ID per line
 
-# Core
+# Core / Formatting
 esbenp.prettier-vscode
 dbaeumer.vscode-eslint
+usernamehw.errorlens
+
+# Editor Enhancements
+vscodevim.vim
+alefragnani.bookmarks
+johnpapa.vscode-peacock
 
 # Git
 eamodio.gitlens
 
-# Themes (optional)
-# dracula-theme.theme-dracula
+# AI
+anthropic.claude-code
+github.copilot
+github.copilot-chat
+
+# JavaScript/TypeScript
+ms-vscode.vscode-typescript-next
+
+# Python
+ms-python.python
+ms-python.vscode-pylance
+ms-python.debugpy
+ms-python.vscode-python-envs
+
+# Ruby
+castwide.solargraph
+ruby-syntax-tree.vscode-syntax-tree
+sorbet.sorbet-vscode-extension
+koichisasada.vscode-rdbg
+
+# Web / Frontend
+bradlc.vscode-tailwindcss
+adrianwilczynski.alpine-js-intellisense
+pcbowers.alpine-intellisense
+craigrbroughton.htmx-attributes
+otovo-oss.htmx-tags
+ritwickdey.liveserver
+
+# Django / Jinja
+batisteo.vscode-django
+monosans.djlint
+samuelcolvin.jinjahtml
+
+# Markdown / Docs
+shd101wyy.markdown-preview-enhanced
+bpruitt-goddard.mermaid-markdown-syntax-highlighting
+vstirbu.vscode-mermaid-preview
+
+# Config Files
+tamasfe.even-better-toml
+
+# Themes
+dnlytras.nord-wave
