@@ -70,13 +70,14 @@ cd ~/.dotfiles
 ```
 ~/.dotfiles/
 ├── install.sh              # Main entry point
-├── repos.conf              # External repo locations
-├── machines/               # Machine profiles
-│   ├── personal-mac.sh
-│   ├── stripe-mac.sh
-│   └── stripe-devbox.sh
+├── repos.json              # External repo locations
+├── machines/               # Machine profiles (JSON)
+│   ├── personal-mac.json
+│   ├── stripe-mac.json
+│   └── stripe-devbox.json
 ├── tools/                  # Tool configs + merge hooks
 │   ├── git/
+│   │   └── tool.json       # Layer sources + merge hook
 │   ├── zsh/
 │   ├── nvim/
 │   ├── ssh/
@@ -112,15 +113,20 @@ Output:             ~/.config/nvim/
 ## Adding a New Tool
 
 1. Create config directory: `configs/<tool>/`
-2. Create tool config: `tools/<tool>/tool.conf`
-3. Add to machine profiles: `machines/*.sh`
+2. Create tool config: `tools/<tool>/tool.json`
+3. Add to machine profiles: `machines/*.json`
 
-**tools/mytool/tool.conf:**
-```bash
-layers_base="local:configs/mytool"
-layers_stripe="STRIPE_DOTFILES:mytool"
-target="${HOME}/.config/mytool"
-merge_hook="builtin:symlink"
+**tools/mytool/tool.json:**
+```json
+{
+  "$schema": "../../lib/dotfiles-system/schemas/tool.schema.json",
+  "target": "~/.config/mytool",
+  "layers": [
+    { "name": "base", "source": "local", "path": "configs/mytool" },
+    { "name": "stripe", "source": "STRIPE_DOTFILES", "path": "mytool" }
+  ],
+  "merge_hook": "builtin:symlink"
+}
 ```
 
 ## Updating

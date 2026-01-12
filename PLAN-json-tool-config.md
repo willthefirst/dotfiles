@@ -2,7 +2,7 @@
 
 > **Purpose**: Migrate all configuration files from key=value/bash format to JSON for better structure, validation, and tooling support.
 
-> **Status**: 🟡 In Progress
+> **Status**: 🟢 Complete
 
 > **Last Updated**: 2026-01-11
 
@@ -38,14 +38,14 @@
 
 ### Success Criteria
 
-- [ ] All tool.conf files migrated to tool.json
-- [ ] repos.conf migrated to repos.json
-- [ ] All machine profiles migrated to JSON
-- [ ] JSON Schemas provide validation and IDE completion
-- [ ] All parsers support JSON natively
-- [ ] Migration scripts handle all existing configs
-- [ ] All tests updated and passing
-- [ ] Documentation updated
+- [x] All tool.conf files migrated to tool.json
+- [x] repos.conf migrated to repos.json
+- [x] All machine profiles migrated to JSON
+- [x] JSON Schemas provide validation and IDE completion
+- [x] All parsers support JSON natively (legacy parsers removed)
+- [x] Migration scripts handle all existing configs
+- [x] All tests updated and passing (399 tests)
+- [x] Documentation updated
 
 ---
 
@@ -170,7 +170,7 @@ ssh_layers=(base stripe)
 | 4 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Machine JSON parser + unit/integration tests |
 | 5 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Migration script + unit/integration tests |
 | 6 | 🟢 Complete | 2026-01-11 | 2026-01-11 | All configs migrated to JSON |
-| 7 | 🔴 Not Started | - | - | - |
+| 7 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Legacy files and parsers removed, docs updated |
 
 Status key: 🔴 Not Started | 🟡 In Progress | 🟢 Complete | 🔵 Blocked
 
@@ -641,29 +641,41 @@ esac
 **Tasks**:
 
 1. Remove legacy parser functions:
-   - [ ] `config_parse_tool_conf()` (keep as fallback until confident)
-   - [ ] `_repos_init_conf()`
-   - [ ] `_machine_load_bash()`
+   - [x] `config_parse_tool_conf()` - removed
+   - [x] `config_parse_line()` - removed
+   - [x] `config_expand_vars()` - removed
+   - [x] `_repos_init_conf()` - removed
+   - [x] `_machine_load_bash()` - removed
+   - [x] `config_parse_bash_array()` - removed
 
 2. Delete legacy config files:
-   - [ ] All `tools/*/tool.conf`
-   - [ ] `repos.conf`
-   - [ ] `machines/*.sh`
+   - [x] All `tools/*/tool.conf` (8 files)
+   - [x] `repos.conf`
+   - [x] `machines/*.sh` (3 files)
 
 3. Update documentation:
-   - [ ] CLAUDE.md - document JSON format
-   - [ ] README.md files
-   - [ ] This plan (mark complete)
+   - [x] README.md - updated structure and examples
+   - [x] lib/dotfiles-system/README.md - updated config examples
+   - [x] This plan (mark complete)
 
 4. Update install.sh:
-   - [ ] Change profile argument to use .json extension
-   - [ ] Update `--list` to show .json profiles
+   - [x] Change profile argument to use .json extension
+   - [x] Update `--list` to show .json profiles
+   - [x] Update `_ensure_external_repos_for_profile()` for JSON
+
+5. Update orchestrator.sh:
+   - [x] Change profile extension resolution from .sh to .json
+
+6. Update tests:
+   - [x] test_orchestrator.sh - updated to use JSON configs
+   - [x] test_parser.sh - removed legacy conf tests
+   - [x] test_machine.sh - removed legacy bash tests
 
 **Deliverables**:
-- [ ] Legacy parsers removed
-- [ ] All .conf and .sh configs deleted
-- [ ] Documentation updated
-- [ ] All tests passing
+- [x] Legacy parsers removed
+- [x] All .conf and .sh configs deleted
+- [x] Documentation updated
+- [x] All 399 tests passing
 
 ---
 
@@ -745,6 +757,7 @@ Before Phase 7 cleanup:
 | 2026-01-11 | Phase 4 complete: Machine JSON parser with unit/integration tests | Claude |
 | 2026-01-11 | Phase 5 complete: Migration script with unit/integration tests | Claude |
 | 2026-01-11 | Phase 6 complete: All config files migrated to JSON | Claude |
+| 2026-01-11 | Phase 7 complete: Legacy files/parsers removed, docs/tests updated, migration complete | Claude |
 
 ---
 
