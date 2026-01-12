@@ -168,7 +168,7 @@ ssh_layers=(base stripe)
 | 2 | 🟢 Complete | 2026-01-11 | 2026-01-11 | JSON parser + unit/integration tests |
 | 3 | 🟢 Complete | 2026-01-11 | 2026-01-11 | repos.json parser + unit/integration tests |
 | 4 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Machine JSON parser + unit/integration tests |
-| 5 | 🔴 Not Started | - | - | - |
+| 5 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Migration script + unit/integration tests |
 | 6 | 🔴 Not Started | - | - | - |
 | 7 | 🔴 Not Started | - | - | - |
 
@@ -586,10 +586,12 @@ esac
 ```
 
 **Deliverables**:
-- [ ] `scripts/migrate-to-json.sh`
-- [ ] `--dry-run` mode for preview
-- [ ] Support for migrating individual components
-- [ ] Validation that generated JSON matches schema
+- [x] `scripts/migrate-to-json.sh`
+- [x] `--dry-run` mode for preview
+- [x] Support for migrating individual components (`--tool`, `--repos`, `--machines`)
+- [x] Validation that generated JSON matches schema
+- [x] Unit tests (`test/unit/scripts/test_migrate_to_json.sh`)
+- [x] Integration tests (`test/integration/test_migrate_to_json.sh`)
 
 ---
 
@@ -741,6 +743,7 @@ Before Phase 7 cleanup:
 | 2026-01-11 | Phase 2 complete: Tool config JSON parser with unit/integration tests | Claude |
 | 2026-01-11 | Phase 3 complete: Repos JSON parser with unit/integration tests | Claude |
 | 2026-01-11 | Phase 4 complete: Machine JSON parser with unit/integration tests | Claude |
+| 2026-01-11 | Phase 5 complete: Migration script with unit/integration tests | Claude |
 
 ---
 
