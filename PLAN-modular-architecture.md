@@ -2,7 +2,7 @@
 
 > **Purpose**: Re-architect the dotfiles system with clear module boundaries, enforceable contracts, and comprehensive testability through dependency injection and mocking.
 
-> **Status**: 🟢 Phase 2 Complete - Ready for Phase 3
+> **Status**: 🟢 Phase 3 Complete - Ready for Phase 4
 
 > **Last Updated**: 2026-01-11
 
@@ -284,7 +284,7 @@ Update this table as work progresses:
 |-------|--------|---------|-----------|-------|
 | 1 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Core modules implemented with mock support |
 | 2 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Contracts module with LayerSpec, ToolConfig, MachineConfig, HookResult |
-| 3 | 🔴 Not Started | - | - | - |
+| 3 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Config module with parser, validator, machine loader (107 new tests) |
 | 4 | 🔴 Not Started | - | - | - |
 | 5 | 🔴 Not Started | - | - | - |
 | 6 | 🔴 Not Started | - | - | - |
@@ -1070,14 +1070,20 @@ load_machine_profile() {
 ```
 
 **Deliverables**:
-- [ ] `lib/config/README.md`
-- [ ] `lib/config/parser.sh`
-- [ ] `lib/config/validator.sh`
-- [ ] `lib/config/machine.sh`
-- [ ] `test/unit/config/test_parser.sh`
-- [ ] `test/unit/config/test_validator.sh`
-- [ ] `test/unit/config/test_machine.sh`
-- [ ] Test fixtures in `test/lib/fixtures/`
+- [x] `lib/config/README.md`
+- [x] `lib/config/parser.sh`
+- [x] `lib/config/validator.sh`
+- [x] `lib/config/machine.sh`
+- [x] `test/unit/config/test_parser.sh` (43 tests)
+- [x] `test/unit/config/test_validator.sh` (32 tests)
+- [x] `test/unit/config/test_machine.sh` (32 tests)
+- [x] All tests passing (294 total tests)
+
+**Lessons Learned**:
+- Bash `set -e` with arithmetic: `((line_num++))` fails when `line_num=0` because `((0))` returns 1. Use `((++line_num))` for pre-increment or avoid post-increment with zero.
+- Return code capture with `set -e`: Use `local rc=0; cmd || rc=$?` pattern to capture non-zero return codes without exiting.
+- Machine config validation: Need to check both key existence AND non-empty value for tool layers.
+- Parser design: Keeping parser output as raw key-value (no interpretation) makes validator simpler and more testable.
 
 ---
 
@@ -1575,6 +1581,7 @@ When working on this implementation:
 | 2025-01-11 | Initial plan created | Claude |
 | 2026-01-11 | Phase 1 complete: core modules (fs, log, backup, errors) with mock support and 70 unit tests | Claude |
 | 2026-01-11 | Phase 2 complete: contracts module (LayerSpec, ToolConfig, MachineConfig, HookResult) with 187 total tests | Claude |
+| 2026-01-11 | Phase 3 complete: config module (parser, validator, machine) with 294 total tests | Claude |
 
 ### Open Questions
 
@@ -1592,7 +1599,7 @@ Track questions that need resolution:
 
 3. Performance: Is fs abstraction overhead acceptable?
    - **Decision**: TBD - needs benchmarking
-   - **Note**: 187 tests run in ~2 seconds, so mock overhead appears minimal
+   - **Note**: 294 tests run in ~3 seconds, so mock overhead appears minimal
 
 ---
 
