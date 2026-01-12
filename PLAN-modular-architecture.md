@@ -2,7 +2,7 @@
 
 > **Purpose**: Re-architect the dotfiles system with clear module boundaries, enforceable contracts, and comprehensive testability through dependency injection and mocking.
 
-> **Status**: 🟢 Phase 3 Complete - Ready for Phase 4
+> **Status**: 🟢 Phase 6 Complete - Ready for Phase 7 (Migration)
 
 > **Last Updated**: 2026-01-11
 
@@ -285,9 +285,9 @@ Update this table as work progresses:
 | 1 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Core modules implemented with mock support |
 | 2 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Contracts module with LayerSpec, ToolConfig, MachineConfig, HookResult |
 | 3 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Config module with parser, validator, machine loader (107 new tests) |
-| 4 | 🔴 Not Started | - | - | - |
-| 5 | 🔴 Not Started | - | - | - |
-| 6 | 🔴 Not Started | - | - | - |
+| 4 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Resolver module with paths, repos, layers (116 new tests, 410 total) |
+| 5 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Executor module with registry, runner, 4 builtins (39 new tests, 449 total) |
+| 6 | 🟢 Complete | 2026-01-11 | 2026-01-11 | Orchestrator with unit/integration tests (40 new unit, 31 integration, 520 total) |
 | 7 | 🔴 Not Started | - | - | - |
 | 8 | 🔴 Not Started | - | - | - |
 
@@ -1105,13 +1105,20 @@ load_machine_profile() {
 3. Clear separation: paths.sh for string manipulation, repos.sh for git operations
 
 **Deliverables**:
-- [ ] `lib/resolver/README.md`
-- [ ] `lib/resolver/layers.sh`
-- [ ] `lib/resolver/paths.sh`
-- [ ] `lib/resolver/repos.sh`
-- [ ] `test/unit/resolver/test_layers.sh`
-- [ ] `test/unit/resolver/test_paths.sh`
-- [ ] `test/unit/resolver/test_repos.sh` (with git mocking)
+- [x] `lib/resolver/README.md`
+- [x] `lib/resolver/layers.sh`
+- [x] `lib/resolver/paths.sh`
+- [x] `lib/resolver/repos.sh`
+- [x] `test/unit/resolver/test_layers.sh` (39 tests)
+- [x] `test/unit/resolver/test_paths.sh` (42 tests)
+- [x] `test/unit/resolver/test_repos.sh` (35 tests, with mock support for git operations)
+- [x] All tests passing (410 total tests)
+
+**Lessons Learned**:
+- Path normalization is subtle: Need to handle `.`, `..`, multiple slashes, and relative vs absolute paths differently
+- Mock strategy for git operations: Use `repos_mock_set_exists()` to control whether repo appears cloned without actual git calls
+- Layer resolution builds on contracts: Using `tool_config_get_layer_*` and `tool_config_set_layer_resolved` makes the interface clean
+- Separation of concerns: `paths.sh` is pure (no I/O), `repos.sh` manages state, `layers.sh` orchestrates both
 
 ---
 
@@ -1156,16 +1163,27 @@ run_hook_isolated() {
 ```
 
 **Deliverables**:
-- [ ] `lib/executor/README.md`
-- [ ] `lib/executor/registry.sh`
-- [ ] `lib/executor/runner.sh`
-- [ ] `lib/executor/builtins/symlink.sh`
-- [ ] `lib/executor/builtins/concat.sh`
-- [ ] `lib/executor/builtins/source.sh`
-- [ ] `lib/executor/builtins/json-merge.sh`
-- [ ] `test/unit/executor/test_registry.sh`
-- [ ] `test/unit/executor/test_runner.sh`
-- [ ] `test/unit/executor/builtins/test_*.sh`
+- [x] `lib/executor/README.md`
+- [x] `lib/executor/registry.sh`
+- [x] `lib/executor/runner.sh`
+- [x] `lib/executor/builtins/symlink.sh`
+- [x] `lib/executor/builtins/concat.sh`
+- [x] `lib/executor/builtins/source.sh`
+- [x] `lib/executor/builtins/json-merge.sh`
+- [x] `test/unit/executor/test_registry.sh` (14 tests)
+- [x] `test/unit/executor/test_runner.sh` (17 tests)
+- [x] `test/unit/executor/builtins/test_symlink.sh` (14 tests)
+- [x] `test/unit/executor/builtins/test_concat.sh` (13 tests)
+- [x] `test/unit/executor/builtins/test_source.sh` (14 tests)
+- [x] `test/unit/executor/builtins/test_json_merge.sh` (14 tests)
+- [x] All tests passing (449 total tests)
+
+**Lessons Learned**:
+- Builtin strategies share common patterns: file finding, backup, parent directory creation. Consider extracting shared utilities in future.
+- Mock filesystem works well for testing I/O operations without side effects
+- Strategy registry pattern allows easy extension with custom strategies
+- HookResult contract provides consistent error reporting across all builtins
+- Tilde expansion needs to happen at execution time, not parse time
 
 ---
 
@@ -1213,9 +1231,18 @@ orchestrate_install() {
 ```
 
 **Deliverables**:
-- [ ] `lib/orchestrator.sh`
-- [ ] `test/unit/test_orchestrator.sh` (using all mocks)
-- [ ] `test/integration/test_full_workflow.sh` (real filesystem)
+- [x] `lib/orchestrator.sh`
+- [x] `test/unit/test_orchestrator.sh` (40 tests using all mocks)
+- [x] `test/integration/test_full_workflow.sh` (31 tests with real filesystem)
+- [x] All tests passing (520 total tests)
+
+**Lessons Learned**:
+- Orchestrator is pure coordination with no direct I/O - all I/O goes through injected modules
+- Layer filtering from machine profile requires careful handling of associative array key iteration
+- Dry-run mode is implemented by skipping hook execution and just logging what would happen
+- Empty TOOLS array in machine profile is treated as validation failure (a profile with no tools is not useful)
+- Integration tests use real temp directories to verify end-to-end workflows with actual filesystem operations
+- Custom merge scripts receive environment variables (TOOL, TARGET, LAYERS, LAYER_PATHS, DOTFILES_DIR, OS) for flexibility
 
 ---
 
@@ -1582,6 +1609,9 @@ When working on this implementation:
 | 2026-01-11 | Phase 1 complete: core modules (fs, log, backup, errors) with mock support and 70 unit tests | Claude |
 | 2026-01-11 | Phase 2 complete: contracts module (LayerSpec, ToolConfig, MachineConfig, HookResult) with 187 total tests | Claude |
 | 2026-01-11 | Phase 3 complete: config module (parser, validator, machine) with 294 total tests | Claude |
+| 2026-01-11 | Phase 4 complete: resolver module (paths, repos, layers) with 410 total tests | Claude |
+| 2026-01-11 | Phase 5 complete: executor module (registry, runner, 4 builtins) with 449 total tests | Claude |
+| 2026-01-11 | Phase 6 complete: orchestrator module with 40 unit tests and 31 integration tests (520 total) | Claude |
 
 ### Open Questions
 
