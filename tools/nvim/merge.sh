@@ -14,6 +14,7 @@ set -eo pipefail
 # arrays that may be empty, and bash's ${#array[@]} doesn't work well with -u
 source "${DOTFILES_DIR}/lib/helpers/log.sh"
 source "${DOTFILES_DIR}/lib/helpers/symlink-factory.sh"
+source "${DOTFILES_DIR}/lib/helpers/safe-write.sh"
 source "${DOTFILES_DIR}/lib/dotfiles-system/lib/utils.sh"
 set +u  # Disable unset variable checking for associative array handling
 
@@ -114,7 +115,7 @@ fi
 
 # Generate layer info file for runtime detection
 mkdir -p "$TARGET/lua/lib"
-cat > "$TARGET/lua/lib/layers.lua" << EOF
+safe_write_heredoc "$TARGET/lua/lib/layers.lua" << EOF
 -- Auto-generated layer information
 -- Layers: $LAYERS
 return {

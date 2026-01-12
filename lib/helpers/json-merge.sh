@@ -5,6 +5,7 @@
 # Source logging utilities if not already loaded
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/log.sh"
+source "$SCRIPT_DIR/safe-write.sh"
 
 # Ensure jq is available
 _require_jq() {
@@ -23,13 +24,13 @@ json_deep_merge() {
     local inputs=("$@")
 
     if [[ ${#inputs[@]} -eq 0 ]]; then
-        echo "{}" > "$output"
+        safe_write_file "$output" "{}"
         return 0
     fi
 
     # jq's * operator does deep merge
     # reduce iterates through all files, merging each into accumulator
-    jq -s 'reduce .[] as $item ({}; . * $item)' "${inputs[@]}" > "$output"
+    safe_jq_write "$output" -s 'reduce .[] as $item ({}; . * $item)' "${inputs[@]}"
 }
 
 # Merge JSON arrays from multiple files (union, preserving order, no duplicates)

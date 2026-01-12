@@ -10,6 +10,7 @@ _DOTFILES_INSTALL_HELPERS_LOADED=1
 source "${BASH_SOURCE%/*}/log.sh"
 source "${BASH_SOURCE%/*}/platform.sh"
 source "${BASH_SOURCE%/*}/pkg-manager.sh"
+source "${BASH_SOURCE%/*}/safe-write.sh"
 
 # Get architecture string for downloads
 get_arch_string() {
@@ -94,18 +95,27 @@ extract_archive() {
     esac
 }
 
-# Install binary to system path
+# Install binary to system path (with backup of existing)
 install_binary() {
     local source="$1"
     local name="$2"
     local dest_dir="${3:-${DOTFILES_BIN_DIR:-/usr/local/bin}}"
+    local target="$dest_dir/$name"
 
     chmod +x "$source"
 
+    # Backup existing binary if present
+    if [[ -e "$target" || -L "$target" ]]; then
+        if ! safe_remove "$target"; then
+            log_error "Backup failed, aborting binary install: $target"
+            return 1
+        fi
+    fi
+
     if [[ -w "$dest_dir" ]]; then
-        mv "$source" "$dest_dir/$name"
+        mv "$source" "$target"
     else
-        sudo mv "$source" "$dest_dir/$name"
+        sudo mv "$source" "$target"
     fi
 
     log_ok "Installed $name to $dest_dir"

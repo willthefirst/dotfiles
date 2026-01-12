@@ -15,6 +15,7 @@ DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 source "$DOTFILES_DIR/lib/helpers/log.sh"
 source "$DOTFILES_DIR/lib/helpers/json-merge.sh"
 source "$DOTFILES_DIR/lib/helpers/symlink-factory.sh"
+source "$DOTFILES_DIR/lib/helpers/safe-write.sh"
 
 # Parse layer paths from environment (colon-separated)
 IFS=':' read -ra layer_paths <<< "$LAYER_PATHS"
@@ -53,7 +54,7 @@ for layer_path in "${layer_paths[@]}"; do
 done
 
 if [[ ${#keybindings_files[@]} -gt 0 ]]; then
-    jq -s 'add' "${keybindings_files[@]}" > "$TARGET/keybindings.json"
+    safe_jq_write "$TARGET/keybindings.json" -s 'add' "${keybindings_files[@]}"
     log_ok "Created $TARGET/keybindings.json"
 else
     log_warn "No keybindings.json found in any layer"
