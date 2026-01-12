@@ -13,6 +13,7 @@ set -eo pipefail
 # Note: utils.sh has set -u, but we disable it here since we use associative
 # arrays that may be empty, and bash's ${#array[@]} doesn't work well with -u
 source "${DOTFILES_DIR}/lib/helpers/log.sh"
+source "${DOTFILES_DIR}/lib/helpers/symlink-factory.sh"
 source "${DOTFILES_DIR}/lib/dotfiles-system/lib/utils.sh"
 set +u  # Disable unset variable checking for associative array handling
 
@@ -82,9 +83,7 @@ if [[ ${#config_files[@]} -gt 0 ]]; then
     mkdir -p "$TARGET/lua/config"
     log_step "Creating config symlinks..."
     for filename in "${!config_files[@]}"; do
-        source_path="${config_files[$filename]}"
-        ln -sf "$source_path" "$TARGET/lua/config/$filename"
-        log_detail "$filename"
+        symlink_with_backup "${config_files[$filename]}" "$TARGET/lua/config/$filename"
     done
 fi
 
@@ -93,9 +92,7 @@ if [[ ${#plugin_files[@]} -gt 0 ]]; then
     mkdir -p "$TARGET/lua/plugins"
     log_step "Creating plugin symlinks..."
     for filename in "${!plugin_files[@]}"; do
-        source_path="${plugin_files[$filename]}"
-        ln -sf "$source_path" "$TARGET/lua/plugins/$filename"
-        log_detail "$filename"
+        symlink_with_backup "${plugin_files[$filename]}" "$TARGET/lua/plugins/$filename"
     done
 fi
 
@@ -103,9 +100,7 @@ fi
 if [[ ${#plugin_dirs[@]} -gt 0 ]]; then
     log_step "Symlinking additional plugin directories..."
     for dirname in "${!plugin_dirs[@]}"; do
-        source_path="${plugin_dirs[$dirname]}"
-        ln -sf "$source_path" "$TARGET/lua/$dirname"
-        log_detail "$dirname/"
+        symlink_directory "${plugin_dirs[$dirname]}" "$TARGET/lua/$dirname"
     done
 fi
 
@@ -113,9 +108,7 @@ fi
 if [[ ${#root_files[@]} -gt 0 ]]; then
     log_step "Creating root file symlinks..."
     for filename in "${!root_files[@]}"; do
-        source_path="${root_files[$filename]}"
-        ln -sf "$source_path" "$TARGET/$filename"
-        log_detail "$filename"
+        symlink_with_backup "${root_files[$filename]}" "$TARGET/$filename"
     done
 fi
 

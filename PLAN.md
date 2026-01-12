@@ -817,8 +817,8 @@ bash lib/dotfiles-system/test/run_tests.sh --integration
 | `machines/personal-mac.sh` | +2 lines |
 | `machines/stripe-mac.sh` | +2 lines |
 
-## Phase 4: Optional Refactoring
+## Phase 4: Optional Refactoring (DONE)
 | File | Action |
 |------|--------|
-| `tools/nvim/merge.sh` | Simplify with helpers |
-| `tools/claude/merge.sh` | Simplify with helpers |
+| `tools/nvim/merge.sh` | Simplified with symlink-factory helpers |
+| `tools/claude/merge.sh` | Simplified with symlink-factory helpers |
