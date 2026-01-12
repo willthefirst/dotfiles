@@ -1,0 +1,12 @@
+# VS Code Extensions
+# One extension ID per line
+
+# Core
+esbenp.prettier-vscode
+dbaeumer.vscode-eslint
+
+# Git
+eamodio.gitlens
+
+# Themes (optional)
+# dracula-theme.theme-dracula

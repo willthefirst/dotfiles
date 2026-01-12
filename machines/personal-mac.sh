@@ -9,6 +9,7 @@ TOOLS=(
     ghostty
     karabiner
     claude
+    vscode
 )
 
 # Layer assignments (base only for personal machine)
@@ -19,3 +20,4 @@ ssh_layers=(base)
 ghostty_layers=(base)
 karabiner_layers=(base)
 claude_layers=(base)
+vscode_layers=(base)

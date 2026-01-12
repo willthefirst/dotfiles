@@ -16,7 +16,7 @@
   - Added documentation: `CLAUDE.md`, `lib/helpers/README.md`, `test/README.md`
 
 ### Remaining
-- [ ] **Phase 3**: VS Code tool implementation
+- [x] **Phase 3**: VS Code tool implementation
   - `tools/vscode/tool.conf`
   - `tools/vscode/merge.sh`
   - `tools/vscode/install.sh`
