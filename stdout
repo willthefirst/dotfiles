@@ -1,0 +1,22 @@
+==> Loading machine profile: personal-mac
+  -> Profile: personal-mac (8 tools)
+  ⚠ DRY-RUN MODE: No changes will be made
+  -> Processing: claude
+  ✓ [DRY-RUN] claude
+  -> Processing: ghostty
+  ✓ [DRY-RUN] ghostty
+  -> Processing: git
+  ✓ [DRY-RUN] git
+  -> Processing: karabiner
+  ✓ [DRY-RUN] karabiner
+  -> Processing: nvim
+  ✓ [DRY-RUN] nvim
+  -> Processing: ssh
+  ✓ [DRY-RUN] ssh
+  -> Processing: vscode
+  ✓ [DRY-RUN] vscode
+  -> Processing: zsh
+  ✓ [DRY-RUN] zsh
+==> Summary
+  -> Processed: 8 tools
+  ✓ Succeeded: 8
