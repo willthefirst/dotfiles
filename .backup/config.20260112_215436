@@ -1,0 +1,105 @@
+# BEGIN devboxes SSH config
+Include ~/.ssh/devbox_configs
+# END devboxes SSH config
+# === Layer: base ===
+# Source: /Users/willm/.dotfiles/configs/ssh/config
+
+# BEGIN devboxes SSH config
+Include ~/.ssh/devbox_configs
+# END devboxes SSH config
+# =============================================================================
+# SSH Config - Base Configuration
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Global Defaults
+# -----------------------------------------------------------------------------
+Host *
+    # Temporarily disabling this line while we figure out how to configure gpg signing for private willthefirst repositories 
+    # Use 1Password SSH agent
+    # IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    # Keep connections alive
+    #
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    # Security
+    AddKeysToAgent yes
+    # Connection reuse
+    ControlMaster auto
+    ControlPath ~/.ssh/sockets/%r@%h-%p
+    ControlPersist 600
+
+# -----------------------------------------------------------------------------
+# Personal Hosts
+# -----------------------------------------------------------------------------
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+
+# === Layer: stripe ===
+# Source: /Users/willm/.dotfiles-stripe/ssh/config
+
+# BEGIN devboxes SSH config
+Include ~/.ssh/devbox_configs
+# END devboxes SSH config
+# =============================================================================
+# SSH Config - Stripe Configuration (includes base)
+# =============================================================================
+# This wrapper defines Stripe hosts first (SSH uses first-match), then
+# includes the base configuration.
+# Managed by: git@git.corp.stripe.com:willm/.dotfiles-stripe.git
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Stripe GitHub Enterprise
+# -----------------------------------------------------------------------------
+Host git.corp.stripe.com
+    HostName git.corp.stripe.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+    # Or use a work-specific key:
+    # IdentityFile ~/.ssh/id_stripe
+
+# -----------------------------------------------------------------------------
+# Stripe Development Hosts
+# -----------------------------------------------------------------------------
+# Devbox / Remote Development
+# Host devbox
+#     HostName devbox.corp.stripe.com
+#     User willm
+#     IdentityFile ~/.ssh/id_stripe
+#     ForwardAgent yes
+
+# SSH to pay-server dev environment
+# Host pay-dev
+#     HostName pay-server-dev.corp.stripe.com
+#     User willm
+#     IdentityFile ~/.ssh/id_stripe
+
+# -----------------------------------------------------------------------------
+# Stripe Bastion / Jump Hosts
+# -----------------------------------------------------------------------------
+# If Stripe uses bastion hosts for access
+# Host stripe-bastion
+#     HostName bastion.corp.stripe.com
+#     User willm
+#     IdentityFile ~/.ssh/id_stripe
+
+# Host *.internal.stripe.com
+#     ProxyJump stripe-bastion
+#     User willm
+
+# -----------------------------------------------------------------------------
+# Stripe Production Access (if applicable)
+# -----------------------------------------------------------------------------
+# Host stripe-prod-*
+#     User willm
+#     IdentityFile ~/.ssh/id_stripe_prod
+#     ProxyJump stripe-bastion
+
+# =============================================================================
+# Include Base Configuration
+# =============================================================================
+# IMPORTANT: This must come AFTER Stripe hosts because SSH uses first-match
+Include ~/.dotfiles/ssh/.ssh/config
