@@ -25,10 +25,31 @@ The current branch has changes that work (they pass CI), but the commit history 
 
 ## Guidelines
 
-- Make each commit atomic and focused on a single logical change
-- Use clear, descriptive commit messages
-- If needed, create 'intermediate' commits to make the progression of changes easier to follow
-- The goal is maximum reviewer clarity
+### Commit Size: Smaller is Better
+- **Err on the side of more, smaller commits** rather than fewer large ones
+- Each commit should do ONE thing - if you can split it, split it
+- A commit that touches 5 lines is often better than one that touches 50
+- When in doubt, make it a separate commit
+
+### Separation of Concerns
+- Separate mechanical changes from behavioral changes
+- Refactoring commits should contain ONLY refactoring (no new behavior)
+- New feature commits should build on clean refactored code
+- Keep "move code" separate from "change code"
+
+### Sequential Storytelling (99 Bottles of OOP style)
+- Structure commits as a clear narrative a reviewer can follow step-by-step
+- Use intermediate "stepping stone" commits that make the journey obvious
+- Each commit should be a small, reversible, understandable transformation
+- The reviewer should be able to verify each step independently
+
+### Commit Messages
+- Use clear, descriptive messages that explain the "what" and "why"
+- For refactoring: describe the transformation (e.g., "Extract helper method for X")
+- For features: describe the capability added
+
+### The Goal
+Maximum reviewer clarity - a reviewer should be able to understand and verify each commit in isolation, following a logical progression from start to finish.
 
 ## Critical Requirement
 
