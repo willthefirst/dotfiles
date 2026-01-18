@@ -3,3 +3,7 @@ font-size = 14
 window-padding-x = 2
 theme = light:Catppuccin Latte,dark:Catppuccin Mocha
 keybind = shift+enter=text:\x1b\r
+clipboard-read = allow
+clipboard-write = allow
+clipboard-paste-protection = false
+clipboard-paste-bracketed-safe = false
