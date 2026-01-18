@@ -35,4 +35,6 @@ if [[ ! -d "$FRAMEWORK" ]]; then
     exit 1
 fi
 
-exec "$FRAMEWORK/install.sh" "$@" --dotfiles "$SCRIPT_DIR"
+# Use $BASH to preserve the current interpreter (homebrew bash after re-exec)
+# rather than letting the framework's shebang resolve to system bash
+exec "$BASH" "$FRAMEWORK/install.sh" "$@" --dotfiles "$SCRIPT_DIR"
