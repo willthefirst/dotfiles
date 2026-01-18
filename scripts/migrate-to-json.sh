@@ -9,6 +9,13 @@
 #   ./scripts/migrate-to-json.sh --repos      # repos.conf only
 #   ./scripts/migrate-to-json.sh --machines   # machines/*.sh only
 
+# Require bash 4+ for associative arrays
+if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
+    echo "Error: Bash 4+ required (found ${BASH_VERSION})" >&2
+    echo "Run with: /opt/homebrew/bin/bash $0" >&2
+    exit 1
+fi
+
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

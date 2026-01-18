@@ -10,6 +10,15 @@ run_preflight_checks() {
     local failed=0
     log_section "Running pre-flight checks"
 
+    # Verify bash 4+ (should be guaranteed by entry point re-exec)
+    if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
+        log_error "Bash 4+ required (found ${BASH_VERSION})"
+        log_error "On macOS: brew install bash"
+        ((failed++))
+    else
+        log_ok "Bash version: ${BASH_VERSION}"
+    fi
+
     # Check backup directory writable
     local backup_dir="${DOTFILES_BACKUP_DIR:-$HOME/.dotfiles-backup}"
     if ! mkdir -p "$backup_dir" 2>/dev/null; then

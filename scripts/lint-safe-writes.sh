@@ -2,6 +2,13 @@
 # scripts/lint-safe-writes.sh
 # Check for unsafe file write patterns in tool scripts
 
+# Require bash 4+ for array features
+if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
+    echo "Error: Bash 4+ required (found ${BASH_VERSION})" >&2
+    echo "Run with: /opt/homebrew/bin/bash $0" >&2
+    exit 1
+fi
+
 set -euo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
