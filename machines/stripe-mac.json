@@ -10,6 +10,6 @@
     "ghostty": ["base"],
     "karabiner": ["base"],
     "claude": ["base"],
-    "vscode": ["base", "stripe"]
+    "vscode": ["base"]
   }
 }
