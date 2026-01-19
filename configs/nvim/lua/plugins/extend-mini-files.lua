@@ -1,5 +1,13 @@
 return {
   "nvim-mini/mini.files",
+  opts = {
+    mappings = {
+      go_in = "<Right>",
+      go_in_plus = "<S-Right>",
+      go_out = "<Left>",
+      go_out_plus = "<S-Left>",
+    },
+  },
   keys = {
     {
       "<leader>e",
