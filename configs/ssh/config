@@ -9,8 +9,9 @@ Include ~/.ssh/devbox_configs
 # Global Defaults
 # -----------------------------------------------------------------------------
 Host *
+    # Temporarily disabling this line while we figure out how to configure gpg signing for private willthefirst repositories 
     # Use 1Password SSH agent
-    IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    # IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
     # Keep connections alive
     #
     ServerAliveInterval 60
