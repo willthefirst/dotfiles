@@ -1,0 +1,31 @@
+[Unit]
+Description=Continuous USB microphone recorder with R2 upload
+After=sound.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Override these via:  sudo systemctl edit mic-recorder
+# (do not commit secrets to this unit file).
+Environment=R2_ACCOUNT_ID=
+Environment=R2_ACCESS_KEY_ID=
+Environment=R2_SECRET_ACCESS_KEY=
+Environment=R2_BUCKET=
+Environment=R2_PUBLIC_BASE_URL=
+Environment=RUST_LOG=info,mic_recorder=debug
+
+ExecStart=/usr/local/bin/mic-recorder --output-dir /var/lib/mic-recorder
+WorkingDirectory=/var/lib/mic-recorder
+StateDirectory=mic-recorder
+Restart=on-failure
+RestartSec=5s
+
+# Hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/mic-recorder
+
+[Install]
+WantedBy=multi-user.target
